@@ -9,21 +9,21 @@ import io.reactivex.rxkotlin.toObservable
 class MainViewModel : ViewModel() {
 
     private var repository: MainRepository = MainRepository()
-    val moviesList = MutableLiveData<ArrayList<String>>()
-    val list = arrayListOf<String>()
+    val dataList = MutableLiveData<ArrayList<String>>()
+    private val temporaryList = arrayListOf<String>()
 
     fun filter(query: String) {
-        moviesList.value?.clear()
-        list.clear()
+        dataList.value?.clear()
+        temporaryList.clear()
         repository.getMovies().toObservable()
                 .filter { it.startsWith(query, true) }
                 .map { movie -> movie.toUpperCase() }
                 .subscribeBy(
                         onNext = {
-                            list.add(it)
+                            temporaryList.add(it)
                         },
                         onError = { it.printStackTrace() },
-                        onComplete = {  moviesList.value = list}
+                        onComplete = { dataList.value = temporaryList }
                 )
     }
 }

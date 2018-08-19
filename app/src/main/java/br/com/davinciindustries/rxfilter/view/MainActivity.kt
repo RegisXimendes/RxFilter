@@ -54,13 +54,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.moviesList.observe(this, Observer {
-
-            itemsAdapter?.clear()
-            itemsAdapter?.addAll(it)
-            itemsAdapter?.notifyDataSetChanged()
-
+        viewModel.dataList.observe(this, Observer { it ->
+            it?.let {
+                setupAdapter(it)
+            }
         })
+    }
+
+    private fun setupAdapter(textList: ArrayList<String>){
+        itemsAdapter?.clear()
+        itemsAdapter?.addAll(textList)
+        itemsAdapter?.notifyDataSetChanged()
     }
 
     override fun onStop() {
