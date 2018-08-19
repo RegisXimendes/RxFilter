@@ -1,7 +1,8 @@
-package br.com.davinciindustries.rxfilter
+package br.com.davinciindustries.rxfilter.view
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import br.com.davinciindustries.rxfilter.R
 
 class MainActivity : AppCompatActivity() {
 
